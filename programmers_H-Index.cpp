@@ -12,9 +12,9 @@ int solution(vector<int> citations) {
     int answer = 0;
     int n = citations.size();
     
+    // 내림차순 정렬
     sort(citations.begin(), citations.end(), compare);
     
-    //6 5 3 1 0
     for(int i = 0; i < n; i++){
         if(citations[i] > i){
             answer++;
