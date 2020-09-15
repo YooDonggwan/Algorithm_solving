@@ -159,6 +159,7 @@ void dfs(int x, int y, int dir, int sum) {
         }
     }
     copyState(map, c_map, fish, c_fish); // 최종적으로 원래의 상태로 돌리기
+    // 이게 없으면 다음 for문의 dfs가 처음 상태에서의 탐색을 하지 못함
 }
 
 
