@@ -27,7 +27,7 @@ struct Shark{
     int dir;
     int prior_dir[5][5];
 };
-Shark shark[MAX * MAX];
+Shark shark[401];
 
 void spreadState(Shark shark) {
     int x = shark.x;
@@ -150,6 +150,12 @@ int main() {
                 shark[a].num = a;
                 shark[a].k = k;
                 shark[a].live = true;
+                map[i][j].k = k;
+                map[i][j].shark_num = a;
+            }
+            else{
+                map[i][j].k = 0;
+                map[i][j].shark_num = 0;
             }
         }
     }
@@ -184,17 +190,13 @@ int main() {
             break;
         }
         
-        if(cnt > 1000 && live_shark > 1){
+        if(cnt >= 1000 && live_shark > 1){
             time_over = true;
             break;
         }
 
-        for(int i = 1; i <= M; i++){
-            if(shark[i].live == false){
-                continue;
-            }
-            spreadState(shark[i]);
-        }
+        
+
         updateState(shark);
 
         // 냄새 없애기
@@ -206,33 +208,27 @@ int main() {
                         map[i][j].shark_num = 0;
                     }
                 }
-                else{
-                    continue;
-                }
             }
         }
-
+        
         // 한 공간에 shark가 여러마리 있으면 번호 제일 낮은 것만 살리기
-        for(int i = 1; i <= M-1; i++){
-            if(shark[i].x == shark[i+1].x && shark[i].y == shark[i+1].y){
-                shark[i+1].live = false;
-            }
-        }
-
         for(int i = 1; i <= M; i++){
             if(shark[i].live == false) continue;
-            for(int j = 1; j <= M; j++){
+            for(int j = i; j <= M; j++){
                 if(i == j) continue;
                 if(shark[j].live == false) continue;
                 if(shark[i].x == shark[j].x && shark[i].y == shark[j].y){
-                    if(i < j){
-                        shark[j].live = false;
-                    } else{
-                        shark[i].live = false;
-                    }
-                    
+                    shark[j].live = false;                
                 }
             }
+        }
+
+        // 냄새 남기기
+        for(int i = 1; i <= M; i++){
+            if(shark[i].live == false){
+                continue;
+            }
+            spreadState(shark[i]);
         }
         
         cnt++;
