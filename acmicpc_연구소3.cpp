@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <cstring>
 #include <queue>
 #include <vector>
 #include <math.h>
