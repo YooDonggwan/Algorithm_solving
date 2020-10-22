@@ -19,7 +19,7 @@ int ans;
 int select_five(int x, int y, int d1, int d2){
     vector<int> people(5, 0) ;
     for(int r = 1; r <= N; r++){
-        for(int c = 1; c <= N; c++){ // 각 구역에서 경계선은 제외해야함
+        for(int c = 1; c <= N; c++){ // 각 구역에서 경계선은 제외
             // 1
             if(r < x+d1 && c <= y && !(r >= x && c >= y-(r-x))){
                 people[0] += map[r][c];
@@ -58,8 +58,8 @@ int divide_area() {
     // 경계선으로 구 나누기
     for(int x = 1; x <= N-2; x++){
         for(int y = 2; y <= N-1; y++){
-            for(int d1 = 1; d1 <= N-x-1 && d1 <= y-1; d1++){ // d1 조건 
-                for(int d2 = 1; d2 <= N-x-1 && d2 <= N-y; d2++){ // d2 조건
+            for(int d1 = 1; d1 <= N-x-1 && d1 <= y-1; d1++){ // d1
+                for(int d2 = 1; d2 <= N-x-1 && d2 <= N-y; d2++){ // d2
                     min_ans = min(min_ans, select_five(x, y, d1, d2));
                 }
             }
